@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 /*
     Напишите компонент с двуми инпутами и кнопкой
@@ -22,4 +22,45 @@ import React, { useState } from "react";
     https://reactjs.org/docs/hooks-reference.html#usereducer
 */
 
-export const Form = () => {};
+export const Form = () => {
+    const [email, changeEmail] = useState(),
+        [password, changePassword] = useState(),
+        [submit, trueSubmit] = useState(false)
+
+    const handleChangeEmail = e => {
+        changeEmail(e.target.value)
+    }
+
+    const handleChangePassword = e => {
+        changePassword(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (email && password) trueSubmit(true)
+    }
+
+    
+    return (
+        <React.Fragment>
+            <input 
+                className="email"
+                data-testid="email-input" 
+                value={email} 
+                onChange={handleChangeEmail} 
+            />
+            <input 
+                className="password"
+                data-testid="password-input" 
+                value={password} 
+                onChange={handleChangePassword} 
+            />
+            <button 
+                type="button" 
+                data-testid="submit" 
+                onClick={handleSubmit}
+            />
+            {submit && <div data-testid="success-message">Вы вошли</div>}
+        </React.Fragment>
+    )
+};
